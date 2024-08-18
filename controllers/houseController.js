@@ -5,46 +5,61 @@ const House = require('../models/House');
 // @route   GET /api/houses
 // @access  Public
 const getAllHouses = asyncHandler(async (req, res) => {
-  const houses = await House.find();
+  const houses = await House.find({});
   res.json(houses);
+});
+
+// @desc    Get house by ID
+// @route   GET /api/houses/:id
+// @access  Public
+const getHouseById = asyncHandler(async (req, res) => {
+  const house = await House.findById(req.params.id);
+
+  if (house) {
+    res.json(house);
+  } else {
+    res.status(404);
+    throw new Error('House not found');
+  }
 });
 
 // @desc    Create a new house
 // @route   POST /api/houses
-// @access  Private
+// @access  Private/Admin
 const createHouse = asyncHandler(async (req, res) => {
-  const { type, location, price, rating, status, imageUrl } = req.body;
+  const { title, description, price, image, location } = req.body;
 
-  const house = new House({
-    type,
-    location,
+  const house = await House.create({
+    title,
+    description,
     price,
-    rating,
-    status,
-    imageUrl,
+    image,
+    location,
   });
 
-  const createdHouse = await house.save();
-  res.status(201).json(createdHouse);
+  if (house) {
+    res.status(201).json(house);
+  } else {
+    res.status(400);
+    throw new Error('Invalid house data');
+  }
 });
 
-// @desc    Update a house
+// @desc    Update house by ID
 // @route   PUT /api/houses/:id
-// @access  Private
+// @access  Private/Admin
 const updateHouse = asyncHandler(async (req, res) => {
-  const { type, location, price, rating, status, imageUrl } = req.body;
-
   const house = await House.findById(req.params.id);
 
   if (house) {
-    house.type = type;
-    house.location = location;
-    house.price = price;
-    house.rating = rating;
-    house.status = status;
-    house.imageUrl = imageUrl;
+    house.title = req.body.title || house.title;
+    house.description = req.body.description || house.description;
+    house.price = req.body.price || house.price;
+    house.image = req.body.image || house.image;
+    house.location = req.body.location || house.location;
 
     const updatedHouse = await house.save();
+
     res.json(updatedHouse);
   } else {
     res.status(404);
@@ -52,9 +67,9 @@ const updateHouse = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Delete a house
+// @desc    Delete a house by ID
 // @route   DELETE /api/houses/:id
-// @access  Private
+// @access  Private/Admin
 const deleteHouse = asyncHandler(async (req, res) => {
   const house = await House.findById(req.params.id);
 
@@ -69,6 +84,7 @@ const deleteHouse = asyncHandler(async (req, res) => {
 
 module.exports = {
   getAllHouses,
+  getHouseById,
   createHouse,
   updateHouse,
   deleteHouse,
