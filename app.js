@@ -23,7 +23,7 @@ app.use(express.json());
 
 // CORS middleware
 app.use(cors({
-    origin: 'https://illustrious-crisp-77e232.netlify.app/'
+    origin:'https://illustrious-crisp-77e232.netlify.app/'
   }));
   
 
