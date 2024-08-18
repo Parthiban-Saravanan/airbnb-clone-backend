@@ -14,6 +14,10 @@ const app = express();
 // Connect to database
 connectDB();
 
+app.get('/', (req, res) => {
+    res.send('Server is working well!');
+});
+
 // Middleware
 app.use(express.json());
 
