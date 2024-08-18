@@ -22,7 +22,10 @@ app.get('/', (req, res) => {
 app.use(express.json());
 
 // CORS middleware
-app.use(cors());
+app.use(cors({
+    origin: 'https://illustrious-crisp-77e232.netlify.app/'
+  }));
+  
 
 // Routes
 app.use('/api/users', userRoutes);
