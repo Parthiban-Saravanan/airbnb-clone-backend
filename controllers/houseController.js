@@ -6,7 +6,7 @@ const House = require('../models/House');
 // @access  Public
 const getAllHouses = asyncHandler(async (req, res) => {
   const houses = await House.find({});
-  res.json(houses);
+  res.status(200).json({ success: true, data: houses });
 });
 
 // @desc    Get house by ID
