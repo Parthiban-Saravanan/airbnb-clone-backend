@@ -14,21 +14,23 @@ const app = express();
 // Connect to database
 connectDB();
 
+// Test route to ensure server is running
 app.get('/', (req, res) => {
-    res.send('Server is working well!');
+  res.send('Server is working well!');
 });
 
-// Middleware
+// Middleware for parsing JSON
 app.use(express.json());
 
 // CORS middleware
 app.use(cors({
-    origin:'https://illustrious-crisp-77e232.netlify.app/'
-  }));
-  
+  origin: 'https://illustrious-crisp-77e232.netlify.app/'
+}));
 
-// Routes
+// User routes
 app.use('/api/users', userRoutes);
+
+// House routes (ensure houseRoutes.js exists and is properly configured)
 app.use('/api/houses', houseRoutes);
 
 // Error handling middleware
