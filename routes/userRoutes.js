@@ -1,20 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const {
-  registerUser,
-  deleteUser,
-  loginUser,
-  getUsers,
-  getUserById,
-  updateUser,
-} = require('../controllers/userController');
-const { protect, admin } = require('../middleware/authMiddleware');
+const { registerUser, loginUser, getUserProfile } = require('../controllers/userController');
+const { protect } = require('../middleware/authMiddleware'); // Ensure the correct import
 
-router.post('/register', registerUser);
+// Route for user registration
+router.post('/signup', registerUser);
+
+// Route for user login
 router.post('/login', loginUser);
-router.get('/', protect, admin, getUsers);
-router.get('/:id', protect, admin, getUserById);
-router.put('/:id', protect, admin, updateUser);
-router.delete('/:id', protect, admin, deleteUser);
+
+// Route for fetching user profile, protected by authMiddleware
+router.get('/profile', protect, getUserProfile); // Ensure protect is used as middleware
 
 module.exports = router;
