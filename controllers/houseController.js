@@ -16,7 +16,7 @@ const getHouseById = asyncHandler(async (req, res) => {
   const house = await House.findById(req.params.id);
 
   if (house) {
-    res.json(house);
+    res.status(200).json(house);
   } else {
     res.status(404);
     throw new Error('House not found');
@@ -60,7 +60,7 @@ const updateHouse = asyncHandler(async (req, res) => {
 
     const updatedHouse = await house.save();
 
-    res.json(updatedHouse);
+    res.status(200).json(updatedHouse);
   } else {
     res.status(404);
     throw new Error('House not found');
@@ -75,7 +75,7 @@ const deleteHouse = asyncHandler(async (req, res) => {
 
   if (house) {
     await house.remove();
-    res.json({ message: 'House removed' });
+    res.status(200).json({ message: 'House removed' });
   } else {
     res.status(404);
     throw new Error('House not found');
