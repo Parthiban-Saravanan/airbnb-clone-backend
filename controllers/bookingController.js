@@ -1,5 +1,5 @@
 const asyncHandler = require('express-async-handler');
-const Booking = require('../models/Booking');
+const Booking = require('../models/bookingModel');
 const House = require('../models/House');
 
 // @desc    Create a new booking
