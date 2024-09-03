@@ -3,6 +3,7 @@ const connectDB = require('./config/db'); // Ensure this function connects to Mo
 const dotenv = require('dotenv');
 const userRoutes = require('./routes/userRoutes'); // Import user routes
 const houseRoutes = require('./routes/houseRoutes'); // Import house routes
+const bookingRoutes = require('./routes/bookingRoutes'); // Import booking routes
 const { errorMiddleware } = require('./middleware/errorMiddleware'); // Import error handling middleware
 const cors = require('cors');
 
@@ -20,7 +21,7 @@ app.use(express.json());
 
 // CORS middleware
 app.use(cors({
-  origin: 'https://illustrious-crisp-77e232.netlify.app/' // Replace with your frontend URL
+  origin: 'https://illustrious-crisp-77e232.netlify.app/' // frontend URL
 }));
 
 // Test route to ensure server is running
@@ -33,6 +34,9 @@ app.use('/api/users', userRoutes);
 
 // House routes
 app.use('/api/houses', houseRoutes);
+
+// Booking routes
+app.use('/api/bookings', bookingRoutes); // Add this line for booking routes
 
 // Error handling middleware
 app.use(errorMiddleware);
