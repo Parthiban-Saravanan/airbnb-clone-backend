@@ -7,21 +7,20 @@ const {
   updateHouse,
   deleteHouse,
 } = require('../controllers/houseController');
-const { protect, admin } = require('../middleware/authMiddleware'); // Correctly import protect and admin
+const { protect, admin } = require('../middleware/authMiddleware');
 
-// Get all houses
+// Logging to ensure functions are imported correctly
+console.log('getAllHouses:', getAllHouses);
+console.log('getHouseById:', getHouseById);
+console.log('createHouse:', createHouse);
+console.log('updateHouse:', updateHouse);
+console.log('deleteHouse:', deleteHouse);
+
+// Routes for house management
 router.get('/', getAllHouses);
-
-// Get house by ID
 router.get('/:id', getHouseById);
-
-// Create a new house
 router.post('/', protect, admin, createHouse);
-
-// Update house by ID
 router.put('/:id', protect, admin, updateHouse);
-
-// Delete a house by ID
 router.delete('/:id', protect, admin, deleteHouse);
 
 module.exports = router;
