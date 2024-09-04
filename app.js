@@ -19,17 +19,12 @@ connectDB();
 // Middleware for parsing JSON
 app.use(express.json());
 
-//CORS Configuration
+// CORS configuration
 const corsOptions = {
-  origin: [
-    'https://main--illustrious-crisp-77e232.netlify.app',
-    'https://illustrious-crisp-77e232.netlify.app',
-  ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: 'https://illustrious-crisp-77e232.netlify.app', // frontend URL
+  credentials: true // Allow credentials
 };
 
-// Apply CORS middleware
 app.use(cors(corsOptions));
 
 // Test route to ensure server is running
