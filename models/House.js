@@ -20,6 +20,7 @@ const houseSchema = mongoose.Schema({
   status: {
     type: String,
     required: true,
+    default: 'available', // Default value if not specified
   },
   imageUrl: {
     type: String,
