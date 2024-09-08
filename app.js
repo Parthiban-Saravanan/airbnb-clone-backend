@@ -1,5 +1,5 @@
 const express = require('express');
-const connectDB = require('./config/db'); // this function connects to MongoDB
+const connectDB = require('./config/db'); // Ensure this function connects to MongoDB
 const dotenv = require('dotenv');
 const userRoutes = require('./routes/userRoutes'); // Import user routes
 const houseRoutes = require('./routes/houseRoutes'); // Import house routes
@@ -39,7 +39,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/houses', houseRoutes);
 
 // Booking routes
-app.use('/api/bookings', bookingRoutes); // this line is for booking routes
+app.use('/api/bookings', bookingRoutes); // Add this line for booking routes
 
 // Error handling middleware
 app.use(errorMiddleware);
