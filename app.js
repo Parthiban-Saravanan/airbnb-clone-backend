@@ -20,9 +20,20 @@ connectDB();
 app.use(express.json());
 
 // CORS configuration
+const allowedOrigins = [
+  'http://localhost:5173', // Localhost for development
+  'https://beautiful-queijadas-a679c1.netlify.app' // Your deployed frontend on Netlify
+];
+
 const corsOptions = {
-  origin: 'https://beautiful-queijadas-a679c1.netlify.app', // frontend URL
-  credentials: true // Allow credentials
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true // Allow cookies, authorization headers, etc.
 };
 
 app.use(cors(corsOptions));
