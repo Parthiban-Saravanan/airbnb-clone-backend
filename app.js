@@ -21,7 +21,7 @@ app.use(express.json());
 
 // CORS configuration
 const corsOptions = {
-  origin: 'https://beautiful-queijadas-a679c1.netlify.app/', // frontend URL
+  origin: 'https://beautiful-queijadas-a679c1.netlify.app', // frontend URL
   credentials: true // Allow credentials
 };
 
