@@ -1,85 +1,47 @@
 const asyncHandler = require('express-async-handler');
-const House = require('../models/House');
+const House = require('../models/House'); // Import your House model
 
-// @desc    Get all houses
-// @route   GET /api/houses
-// @access  Public
+// Get all houses
 const getAllHouses = asyncHandler(async (req, res) => {
-  const houses = await House.find({});
-  res.status(200).json({ success: true, data: houses });
+  const houses = await House.find();
+  res.json(houses);
 });
 
-// @desc    Get house by ID
-// @route   GET /api/houses/:id
-// @access  Public
+// Get house by ID
 const getHouseById = asyncHandler(async (req, res) => {
   const house = await House.findById(req.params.id);
-
-  if (house) {
-    res.status(200).json(house);
-  } else {
-    res.status(404);
-    throw new Error('House not found');
+  if (!house) {
+    res.status(404).json({ message: 'House not found' });
+    return;
   }
+  res.json(house);
 });
 
-// @desc    Create a new house
-// @route   POST /api/houses
-// @access  Private/Admin
+// Create a new house
 const createHouse = asyncHandler(async (req, res) => {
-  const { title, description, price, image, location } = req.body;
-
-  const house = await House.create({
-    title,
-    description,
-    price,
-    image,
-    location,
-  });
-
-  if (house) {
-    res.status(201).json(house);
-  } else {
-    res.status(400);
-    throw new Error('Invalid house data');
-  }
+  const newHouse = new House(req.body);
+  const savedHouse = await newHouse.save();
+  res.status(201).json(savedHouse);
 });
 
-// @desc    Update house by ID
-// @route   PUT /api/houses/:id
-// @access  Private/Admin
+// Update a house
 const updateHouse = asyncHandler(async (req, res) => {
-  const house = await House.findById(req.params.id);
-
-  if (house) {
-    house.title = req.body.title || house.title;
-    house.description = req.body.description || house.description;
-    house.price = req.body.price || house.price;
-    house.image = req.body.image || house.image;
-    house.location = req.body.location || house.location;
-
-    const updatedHouse = await house.save();
-
-    res.status(200).json(updatedHouse);
-  } else {
-    res.status(404);
-    throw new Error('House not found');
+  const house = await House.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  if (!house) {
+    res.status(404).json({ message: 'House not found' });
+    return;
   }
+  res.json(house);
 });
 
-// @desc    Delete a house by ID
-// @route   DELETE /api/houses/:id
-// @access  Private/Admin
+// Delete a house
 const deleteHouse = asyncHandler(async (req, res) => {
-  const house = await House.findById(req.params.id);
-
-  if (house) {
-    await house.remove();
-    res.status(200).json({ message: 'House removed' });
-  } else {
-    res.status(404);
-    throw new Error('House not found');
+  const house = await House.findByIdAndDelete(req.params.id);
+  if (!house) {
+    res.status(404).json({ message: 'House not found' });
+    return;
   }
+  res.json({ message: 'House deleted' });
 });
 
 module.exports = {
@@ -87,5 +49,5 @@ module.exports = {
   getHouseById,
   createHouse,
   updateHouse,
-  deleteHouse,
+  deleteHouse
 };
