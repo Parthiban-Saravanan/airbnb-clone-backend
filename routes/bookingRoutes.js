@@ -1,13 +1,12 @@
 const express = require('express');
+const bookingRouter = express.Router();
 const { createBooking, confirmBooking } = require('../controllers/bookingController');
 const { protect } = require('../middleware/authMiddleware');
 
-const router = express.Router();
-
 // Route to create a new booking
-router.post('/', protect, createBooking);
+bookingRouter.post('/', protect, createBooking);
 
 // Route to confirm booking
-router.post('/confirm', protect, confirmBooking);
+bookingRouter.post('/confirm', protect, confirmBooking);
 
-module.exports = router;
+module.exports = bookingRouter;
