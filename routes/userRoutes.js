@@ -1,9 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const { signup, login, logout } = require('../controllers/userController');
+const {
+  registerUser,
+  authUser,
+  getUserProfile,
+} = require('../controllers/userController');
+const { protect } = require('../middleware/authMiddleware');
 
-router.post('/signup', signup);
-router.post('/login', login);
-router.post('/logout', logout);
+// Public Routes
+router.post('/signup', registerUser);
+router.post('/login', authUser);
+
+// Private Route (Protected with token)
+router.get('/profile', protect, getUserProfile);
 
 module.exports = router;
