@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 const userRoutes = require('./routes/userRoutes');
 const houseRoutes = require('./routes/houseRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
-const errorMiddleware = require('./middleware/errorMiddleware');
+const { notFound, errorHandler } = require('./middleware/errorMiddleware'); // Fixed import
 const cors = require('cors');
 
 // Load environment variables
@@ -40,7 +40,7 @@ const corsOptions = {
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
-      console.log(`Blocked by CORS: ${origin}`); // Log blocked origin for debugging
+      console.log(`Blocked by CORS: ${origin || 'Unknown Origin'}`); // Improved logging for blocked origin
       callback(new Error('Not allowed by CORS'));
     }
   },
