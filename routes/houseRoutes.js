@@ -1,18 +1,18 @@
 const express = require('express');
-const router = express.Router();
+const houseRouter = express.Router();
 const {
   getAllHouses,
   getHouseById,
   createHouse,
   updateHouse,
   deleteHouse
-} = require('../controllers/houseController'); // Adjust path as needed
+} = require('../controllers/houseController');
 
 // Define routes
-router.get('/', getAllHouses); // Get all houses
-router.get('/:id', getHouseById); // Get house by ID
-router.post('/', createHouse); // Create a new house
-router.put('/:id', updateHouse); // Update a house
-router.delete('/:id', deleteHouse); // Delete a house
+houseRouter.get('/', getAllHouses); // Get all houses
+houseRouter.get('/:id', getHouseById); // Get house by ID
+houseRouter.post('/', createHouse); // Create a new house
+houseRouter.put('/:id', updateHouse); // Update a house
+houseRouter.delete('/:id', deleteHouse); // Delete a house
 
-module.exports = router;
+module.exports = houseRouter;
