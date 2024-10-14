@@ -31,7 +31,8 @@ app.use(express.json());
 // CORS configuration
 const allowedOrigins = [
   'http://localhost:5173', // Localhost for development
-  'https://tranquil-cocada-ac3cf1.netlify.app' // Deployed frontend on Netlify
+  'https://beautiful-queijadas-a679c1.netlify.app',
+  'https://illustrious-crisp-77e232.netlify.app' // Deployed frontend on Netlify
 ];
 
 const corsOptions = {
