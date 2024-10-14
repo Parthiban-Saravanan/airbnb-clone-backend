@@ -1,5 +1,5 @@
 const asyncHandler = require('express-async-handler');
-const House = require('../models/House'); // Import your House model
+const House = require('../models/House');
 
 // Get all houses
 const getAllHouses = asyncHandler(async (req, res) => {
