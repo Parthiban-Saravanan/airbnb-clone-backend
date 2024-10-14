@@ -2,7 +2,6 @@ const asyncHandler = require('express-async-handler');
 const Booking = require('../models/bookingModel');
 const House = require('../models/House');
 
-// Create booking (ensure authentication middleware is applied in routes)
 exports.createBooking = asyncHandler(async (req, res) => {
   const { houses, totalPrice } = req.body;
   const userId = req.user._id;
@@ -21,7 +20,6 @@ exports.createBooking = asyncHandler(async (req, res) => {
   res.status(201).json({ success: true, data: booking });
 });
 
-// Confirm booking (house status validation and update)
 exports.confirmBooking = asyncHandler(async (req, res) => {
   const { houses, totalPrice } = req.body;
   const houseIds = houses.map(house => house._id);
@@ -33,7 +31,7 @@ exports.confirmBooking = asyncHandler(async (req, res) => {
   }
 
   const booking = new Booking({
-    user: req.user._id,
+    user : req.user._id,
     houses: houseIds,
     totalPrice,
   });
